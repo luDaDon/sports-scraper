@@ -23,22 +23,6 @@ export default function Home() {
       setError(null)
 
       const res = await axios.get<Player[]>('http://localhost:5000/api/scrape')
-
-      console.log("res.data:", res.data)
-      console.log("typeof:", typeof res.data)
-      console.log("isArray?", Array.isArray(res.data))
-
-      let data = res.data;
-
-      if (typeof data === 'string') {
-        try {
-          data = JSON.parse(data); // 👈 convert string to array
-        } catch (e) {
-          console.error("Invalid JSON string from backend");
-          return;
-        }
-      }
-
       setPlayers(res.data)
     } catch (err) {
       console.error("Fetch error:", err)
@@ -67,14 +51,14 @@ export default function Home() {
       {loading && <p className="mt-4 text-gray-600">Loading...</p>}
       {error && <p className="mt-4 text-red-600">{error}</p>}
 
-      <table className="mt-6 w-full border-collapse border border-gray-400">
-        <thead className="bg-gray-100">
+      <table className="mt-6 w-full border-collapse border border-blue-400">
+        <thead className="bg-blue-100 text-blue-800">
           <tr>
-            <th className="border px-2 py-1">Player</th>
-            <th className="border px-2 py-1">Team</th>
-            <th className="border px-2 py-1">PTS</th>
-            <th className="border px-2 py-1">AST</th>
-            <th className="border px-2 py-1">REB</th>
+            <th className="border border-blue-400 px-2 py-1">Player</th>
+            <th className="border border-blue-400 px-2 py-1">Team</th>
+            <th className="border border-blue-400 px-2 py-1">PTS</th>
+            <th className="border border-blue-400 px-2 py-1">AST</th>
+            <th className="border border-blue-400 px-2 py-1">REB</th>
           </tr>
         </thead>
         <tbody>
