@@ -15,4 +15,4 @@ def scrape_nba_stats():
     df = df[df.Player != "Player"]
     df.iloc[:, 5:] = df.iloc[:, 5:].apply(pd.to_numeric, errors='coerce')
     
-    return df.head(15).to_dict(orient='records')  # send top 15 players
+    return df.head(1).to_dict(orient='records')  # send top 15 players
