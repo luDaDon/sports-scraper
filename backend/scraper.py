@@ -5,14 +5,19 @@ from io import StringIO
 
 
 def scrape_nba_stats():
-    URL = "https://www.basketball-reference.com/leagues/NBA_2024_per_game.html"
+    url = 'https://www.basketball-reference.com/leagues/NBA_2024_totals.html'
+    tables = pd.read_html(url)
+    df = tables[0]
 
-    response = requests.get(URL)
-    soup = BeautifulSoup(response.content, 'html.parser')
-    table = soup.find('table', {'id': 'per_game_stats'})
+    # Remove repeated headers and invalid rows
+    df = df[df['Rk'] != 'Rk']
+    df = df.dropna(subset=['Player'])
+    df = df.fillna(0)
 
-    df = pd.read_html(StringIO(str(table)))[0]
-    df = df[df.Player != "Player"]
-    df.iloc[:, 5:] = df.iloc[:, 5:].apply(pd.to_numeric, errors='coerce')
-    
-    return df.head(1).to_dict(orient='records')  # send top 15 players
+    # Convert numeric columns
+    df[['PTS', 'AST', 'TRB']] = df[['PTS', 'AST', 'TRB']].apply(pd.to_numeric, errors='coerce')
+
+    # Only return relevant columns
+    df = df[['Player', 'Team', 'PTS', 'AST', 'TRB']]
+
+    return df.to_dict(orient='records')
