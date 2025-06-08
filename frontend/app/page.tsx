@@ -63,7 +63,7 @@ export default function Home() {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="e.g. Joel, Luka"
-          className="border border-blue-400 px-2 py-1 rounded w-64 mr-2"
+          className="border border-blue-400 px-2 py-1 rounded w-64 mr-2 text-blue-700"
         />
         <button
           onClick={() => {
