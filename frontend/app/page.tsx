@@ -24,7 +24,7 @@ export default function Home() {
   const fetchStats = async () => {
     try {
       setLoading(true)
-      const res = await axios.get<Player[]>('http://localhost:5000/api/scrape')
+      const res = await axios.get<Player[]>('https://sports-scraper-tt9m.onrender.com/api/scrape')
       console.log(res.data)
       console.log("Is array?", Array.isArray(res.data))
       console.log("Type of res.data:", typeof res.data)
