@@ -15,11 +15,13 @@ export default function Home() {
   const [players, setPlayers] = useState<Player[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [searchTerm, setSearchTerm] = useState<string>('')
+  const [filteredPlayers, setFilteredPlayers] = useState<Player[]>([])
+  const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
     fetchStats()
   }, []);
+
 
   const fetchStats = async () => {
     try {
@@ -32,7 +34,7 @@ export default function Home() {
 
       if (typeof data === 'string') {
         try {
-          data = JSON.parse(data) // 🔧 convert string to object/array
+          data = JSON.parse(data)
         } catch (err) {
             console.error("Invalid JSON string from backend:", err)
             return
@@ -40,6 +42,7 @@ export default function Home() {
       }
 
       setPlayers(data)
+      setFilteredPlayers(data)
     } catch (err) {
         setError('Failed to fetch player stats')
     } finally {
@@ -60,8 +63,19 @@ export default function Home() {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="e.g. Joel, Luka"
-          className="border border-blue-400 px-2 py-1 rounded w-64"
+          className="border border-blue-400 px-2 py-1 rounded w-64 mr-2"
         />
+        <button
+          onClick={() => {
+            const filtered = players.filter((p) =>
+              p.Player.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+            setFilteredPlayers(filtered)
+          }}
+          className="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700"
+        >
+          Search
+        </button>
       </div>
 
       {loading ? (
@@ -78,7 +92,7 @@ export default function Home() {
             </tr>
           </thead>
           <tbody>
-            {players.map((p, index) => (
+            {filteredPlayers.map((p, index) => (
               <tr key={`${p.Player}-${index}`} className="hover:bg-blue-50">
                 <td className="border border-blue-400 px-2 py-1 text-blue-600">{p.Player}</td>
                 <td className="border border-blue-400 px-2 py-1 text-blue-600">{p.Team}</td>
