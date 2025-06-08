@@ -3,7 +3,7 @@ from flask_cors import CORS
 from scraper import scrape_nba_stats
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
+CORS(app, resources={r"/api/*": {"origins": "https://sports-scraper-git-update-ludadons-projects.vercel.app/"}})
 
 
 @app.route('/api/scrape')
