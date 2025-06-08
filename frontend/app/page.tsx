@@ -49,7 +49,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen p-8 bg-white">
-      <h1 className="text-3xl font-bold mb-6 text-blue-700">🏀 NBA Player Stats</h1>
+      <h1 className="text-3xl font-bold mb-6 text-blue-700">🏀 NBA Player 2025 Stats</h1>
 
       {error && <p className="text-red-500 mb-4">{error}</p>}
 
