@@ -5,7 +5,7 @@ from io import StringIO
 
 
 def scrape_nba_stats():
-    url = 'https://www.basketball-reference.com/leagues/NBA_2024_totals.html'
+    url = 'https://www.basketball-reference.com/leagues/NBA_2025_totals.html'
     tables = pd.read_html(url)
     df = tables[0]
 
